@@ -20,10 +20,8 @@ def main():
         file_contents = file.read()
 
     # Uncomment this block to pass the first stage
-    # if file_contents:
-    #     raise NotImplementedError("Scanner not implemented")
-    # else:
-    #     print("EOF  null") # Placeholder, remove this line when implementing the scanner
+     if file_contents:
+         raise NotImplementedError("Scanner not implemented")
 
 
 if __name__ == "__main__":
