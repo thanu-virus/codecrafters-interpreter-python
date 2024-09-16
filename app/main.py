@@ -29,7 +29,7 @@ def main():
             elif c == "+":
                 print("PLUS + null")
             elif c == ";":
-                print("SEMI-COLON ; null")
+                print("SEMICOLON ; null")
             elif c == "*":
                 print("STAR * null")
             elif c == "/":
