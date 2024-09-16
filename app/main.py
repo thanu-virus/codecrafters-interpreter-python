@@ -14,7 +14,7 @@ def main():
 
     if command != "tokenize":
         print(f"Unknown command: {command}", file=sys.stderr)
-        exit(1)
+        exit(0)
 
     with open(filename) as file:
         file_contents = file.read()
