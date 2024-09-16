@@ -36,7 +36,7 @@ def main():
                 print("SLASH / null")
             else:
                 error=True
-                line_number=file_contents.count("\n",0,file_contents.find(token))+1
+                line_number=file_contents.count("\n",0,file_contents.find(c))+1
                 print("[line %s] Error: Unexpected charecter: %s"%(line_number,c),file=sys.stderr,)                
         print("EOF  null")
         if error==True:
