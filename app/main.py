@@ -19,6 +19,6 @@ def main():
                 print("RIGHT_PAREN ) null")
         print("EOF  null")
     else:
-        print("EOF null")
+        print("EOF  null")
 if __name__ == "__main__":
     main()
