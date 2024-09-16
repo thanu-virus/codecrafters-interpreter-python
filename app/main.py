@@ -7,7 +7,7 @@ def main():
 
     if len(sys.argv) < 3:
         print("Usage: ./your_program.sh tokenize <filename>", file=sys.stderr)
-        exit(1)
+        exit(0)
 
     command = sys.argv[1]
     filename = sys.argv[2]
