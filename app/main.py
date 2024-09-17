@@ -54,10 +54,8 @@ def main():
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
-                ptr += 1
-                continue
             ptr += len(ch)
-        toks.append(f"{ch_name} {ch} null")
+            toks.append(f"{ch_name} {ch} null")
         toks.append(
                 "EOF  null"
             )  # Placeholder, remove this line when implementing the scanner
