@@ -55,7 +55,6 @@ def main():
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 ptr=ptr+1
                 exit_code = 65
-                ptr=ptr+1
             ptr += len(ch)
             toks.append(f"{ch_name} {ch} null")
         toks.append(
