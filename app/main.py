@@ -91,6 +91,7 @@ def main():
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
+                ptr+=1
                 continue  # Skip adding this character to toks
             ptr+=1
             if ch_name:
