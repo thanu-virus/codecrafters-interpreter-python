@@ -86,10 +86,8 @@ def main():
                     ptr=len(file_contents)
                 else:
                     ch_name = "SLASH"
-            elif c == " " or c == "\r" or c == "\t":
+            elif ch == " " or ch == "\r" or ch == "\t":
                 pass
-
-            
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
