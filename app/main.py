@@ -18,46 +18,45 @@ def main():
     errs = []
     if file_contents:
         line_no = 1
-        for ch in file_contents:
-            ptr = 0
-            while ptr < len(file_contents):
-                ch = file_contents[ptr]
-                ch_name = ""
-                if ch == "(":
-                    ch_name = "LEFT_PAREN"
-                elif ch == ")":
-                    ch_name = "RIGHT_PAREN"
-                elif ch == "{":
-                    ch_name = "LEFT_BRACE"
-                elif ch == "}":
-                    ch_name = "RIGHT_BRACE"
-                elif ch == ",":
-                    ch_name = "COMMA"
-                elif ch == ".":
-                    ch_name = "DOT"
-                elif ch == "+":
-                    ch_name = "PLUS"
-                elif ch == "-":
-                    ch_name = "MINUS"
-                elif ch == ";":
-                    ch_name = "SEMICOLON"
-                elif ch == "*":
-                    ch_name = "STAR"
-                elif ch == "\n":
-                    line_no += 1
-                    continue
-                elif ch == "=":
-                    if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
-                        ch_name = "EQUAL_EQUAL"
-                        ch = "=="
-                    else:
-                        ch_name = "EQUAL"
+        ptr = 0
+        while ptr < len(file_contents):
+            ch = file_contents[ptr]
+            ch_name = ""
+            if ch == "(":
+                ch_name = "LEFT_PAREN"
+            elif ch == ")":
+                ch_name = "RIGHT_PAREN"
+            elif ch == "{":
+                ch_name = "LEFT_BRACE"
+            elif ch == "}":
+                ch_name = "RIGHT_BRACE"
+            elif ch == ",":
+                ch_name = "COMMA"
+            elif ch == ".":
+                ch_name = "DOT"
+            elif ch == "+":
+                ch_name = "PLUS"
+            elif ch == "-":
+                ch_name = "MINUS"
+            elif ch == ";":
+                ch_name = "SEMICOLON"
+            elif ch == "*":
+                ch_name = "STAR"
+            elif ch == "\n":
+                line_no += 1
+                continue
+            elif ch == "=":
+                if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
+                    ch_name = "EQUAL_EQUAL"
+                    ch = "=="
                 else:
-                    errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
-                    exit_code = 65
-                    ptr += 1
-                    continue
-                ptr += len(ch)
+                    ch_name = "EQUAL"
+            else:
+                errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
+                exit_code = 65
+                ptr += 1
+                continue
+            ptr += len(ch)
             toks.append(f"{ch_name} {ch} null")
             toks.append(
                 "EOF  null"
