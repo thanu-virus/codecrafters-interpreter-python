@@ -25,7 +25,7 @@ def main():
                 c_name = ""
                 if c == "(":
                     c_name = "LEFT_PAREN"
-                elif ch == ")":
+                elif c == ")":
                     c_name = "RIGHT_PAREN"
                 elif c == "{":
                     c_name = "LEFT_BRACE"
@@ -53,7 +53,7 @@ def main():
                     else:
                         c_name = "EQUAL"
                 else:
-                    errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
+                    errs.append(f"[line {line_no}] Error: Unexpected character: {c}")
                     exit_code = 65
                     ptr += 1
                     continue
