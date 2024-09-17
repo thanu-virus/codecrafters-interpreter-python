@@ -71,6 +71,15 @@ def main():
                 else:
                     ch_name = "EQUAL"
                     ptr += 1
+            elif ch == "!":
+                if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
+                    ch_name = "BANG_EQUAL"
+                    ch = "!="
+                    ptr += 2
+                else:
+                    ch_name = "BANG"
+                    ptr += 1
+            
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
