@@ -31,34 +31,24 @@ def main():
             
             if ch == "(":
                 ch_name = "LEFT_PAREN"
-                ptr += 1
             elif ch == ")":
                 ch_name = "RIGHT_PAREN"
-                ptr += 1
             elif ch == "{":
                 ch_name = "LEFT_BRACE"
-                ptr += 1
             elif ch == "}":
                 ch_name = "RIGHT_BRACE"
-                ptr += 1
             elif ch == ",":
                 ch_name = "COMMA"
-                ptr += 1
             elif ch == ".":
                 ch_name = "DOT"
-                ptr += 1
             elif ch == "+":
                 ch_name = "PLUS"
-                ptr += 1
             elif ch == "-":
                 ch_name = "MINUS"
-                ptr += 1
             elif ch == ";":
                 ch_name = "SEMICOLON"
-                ptr += 1
             elif ch == "*":
                 ch_name = "STAR"
-                ptr += 1
             elif ch == "\n":
                 line_no += 1
                 ptr += 1
@@ -67,47 +57,44 @@ def main():
                 if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
                     ch_name = "EQUAL_EQUAL"
                     ch = "=="
-                    ptr += 2
+                    ptr += 1
                 else:
                     ch_name = "EQUAL"
-                    ptr += 1
             elif ch == "!":
                 if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
                     ch_name = "BANG_EQUAL"
                     ch = "!="
-                    ptr += 2
+                    ptr += 1
                 else:
                     ch_name = "BANG"
-                    ptr += 1
             elif ch == "<":
                 if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
                     ch_name = "LESS_EQUAL"
                     ch = "<="
-                    ptr += 2
+                    ptr += 1
                 else:
                     ch_name = "LESS"
-                    ptr += 1
             elif ch == ">":
                 if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
                     ch_name = "GREATER_EQUAL"
                     ch = ">="
-                    ptr += 2
+                    ptr += 1
                 else:
                     ch_name = "GREATER"
-                    ptr += 1
             elif ch == "/":
                 if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "/":
                     ptr=len(file_contents)
                 else:
                     ch_name = "SLASH"
-                    ptr += 1
+            elif c == " " or c == "\r" or c == "\t":
+                pass
+
             
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
-                ptr += 1
                 continue  # Skip adding this character to toks
-            
+            ptr+=1
             if ch_name:
                 toks.append(f"{ch_name} {ch} null")
         
