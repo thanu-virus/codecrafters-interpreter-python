@@ -57,7 +57,7 @@ def main():
                     exit_code = 65
                     ptr += 1
                     continue
-            ptr += len(ch)
+                ptr += len(ch)
             toks.append(f"{ch_name} {ch} null")
             toks.append(
                 "EOF  null"
