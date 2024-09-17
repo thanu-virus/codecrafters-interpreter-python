@@ -97,7 +97,7 @@ def main():
                     ptr += 1
             elif ch == "/":
                 if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "/":
-                    continue
+                    ptr=len(file_contents)
                 else:
                     ch_name = "SLASH"
                     ptr += 1
