@@ -95,6 +95,12 @@ def main():
                 else:
                     ch_name = "GREATER"
                     ptr += 1
+            elif ch == "/":
+                if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "/":
+                    exit(0)
+                else:
+                    ch_name = "SLASH"
+                    ptr += 1
             
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
