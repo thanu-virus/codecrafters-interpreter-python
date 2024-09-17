@@ -31,24 +31,34 @@ def main():
             
             if ch == "(":
                 ch_name = "LEFT_PAREN"
+                ptr += 1
             elif ch == ")":
                 ch_name = "RIGHT_PAREN"
+                ptr += 1
             elif ch == "{":
                 ch_name = "LEFT_BRACE"
+                ptr += 1
             elif ch == "}":
                 ch_name = "RIGHT_BRACE"
+                ptr += 1
             elif ch == ",":
                 ch_name = "COMMA"
+                ptr += 1
             elif ch == ".":
                 ch_name = "DOT"
+                ptr += 1
             elif ch == "+":
                 ch_name = "PLUS"
+                ptr += 1
             elif ch == "-":
                 ch_name = "MINUS"
+                ptr += 1
             elif ch == ";":
                 ch_name = "SEMICOLON"
+                ptr += 1
             elif ch == "*":
                 ch_name = "STAR"
+                ptr += 1
             elif ch == "\n":
                 line_no += 1
                 ptr += 1
