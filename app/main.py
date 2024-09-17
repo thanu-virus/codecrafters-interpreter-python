@@ -18,56 +18,56 @@ def main():
     errs = []
     if file_contents:
         line_no = 1
-        for c in file_contents:
+        for ch in file_contents:
             ptr = 0
             while ptr < len(file_contents):
-                c = file_contents[ptr]
-                c_name = ""
-                if c == "(":
-                    c_name = "LEFT_PAREN"
-                elif c == ")":
-                    c_name = "RIGHT_PAREN"
-                elif c == "{":
-                    c_name = "LEFT_BRACE"
-                elif c == "}":
-                    c_name = "RIGHT_BRACE"
-                elif c == ",":
-                    c_name = "COMMA"
-                elif c == ".":
-                    c_name = "DOT"
-                elif c == "+":
-                    c_name = "PLUS"
-                elif c == "-":
-                    c_name = "MINUS"
-                elif c == ";":
-                    c_name = "SEMICOLON"
-                elif c == "*":
-                    c_name = "STAR"
-                elif c == "\n":
+                ch = file_contents[ptr]
+                ch_name = ""
+                if ch == "(":
+                    ch_name = "LEFT_PAREN"
+                elif ch == ")":
+                    ch_name = "RIGHT_PAREN"
+                elif ch == "{":
+                    ch_name = "LEFT_BRACE"
+                elif ch == "}":
+                    ch_name = "RIGHT_BRACE"
+                elif ch == ",":
+                    ch_name = "COMMA"
+                elif ch == ".":
+                    ch_name = "DOT"
+                elif ch == "+":
+                    ch_name = "PLUS"
+                elif ch == "-":
+                    ch_name = "MINUS"
+                elif ch == ";":
+                    ch_name = "SEMICOLON"
+                elif ch == "*":
+                    ch_name = "STAR"
+                elif ch == "\n":
                     line_no += 1
                     continue
-                elif c == "=":
+                elif ch == "=":
                     if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
-                        c_name = "EQUAL_EQUAL"
-                        c = "=="
+                        ch_name = "EQUAL_EQUAL"
+                        ch = "=="
                     else:
-                        c_name = "EQUAL"
+                        ch_name = "EQUAL"
                 else:
-                    errs.append(f"[line {line_no}] Error: Unexpected character: {c}")
+                    errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                     exit_code = 65
                     ptr += 1
                     continue
-                ptr += len(c)
-                toks.append(f"{c_name} {c} null")
-        toks.append(
+            ptr += len(ch)
+            toks.append(f"{ch_name} {ch} null")
+            toks.append(
                 "EOF  null"
             )  # Placeholder, remove this line when implementing the scanner
-        print("\n".join(errs), file=sys.stderr)
-        print("\n".join(toks))
+            print("\n".join(errs), file=sys.stderr)
+            print("\n".join(toks))
     else:
-            print(
-                "EOF  null"
-            )  # Placeholder, remove this line when implementing the scanner
+        print(
+            "EOF  null"
+        )  # Placeholder, remove this line when implementing the scanner
     exit(exit_code)
 if __name__ == "__main__":
     main()
