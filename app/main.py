@@ -57,12 +57,12 @@ def main():
                 ptr += 1
                 continue
             ptr += len(ch)
-            toks.append(f"{ch_name} {ch} null")
-            toks.append(
+        toks.append(f"{ch_name} {ch} null")
+        toks.append(
                 "EOF  null"
             )  # Placeholder, remove this line when implementing the scanner
-            print("\n".join(errs), file=sys.stderr)
-            print("\n".join(toks))
+        print("\n".join(errs), file=sys.stderr)
+        print("\n".join(toks))
     else:
         print(
             "EOF  null"
