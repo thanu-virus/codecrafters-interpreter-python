@@ -53,6 +53,7 @@ def main():
                     ch_name = "EQUAL"
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
+                ptr=ptr+1
                 exit_code = 65
                 ptr=ptr+1
             ptr += len(ch)
