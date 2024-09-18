@@ -51,8 +51,7 @@ def main():
                 line_no += 1
                 ptr += 1
                 continue
-            elif ch ==" ":
-                ptr+=1
+            
             elif ch == "=":
                 if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
                     ch_name = "EQUAL_EQUAL"
