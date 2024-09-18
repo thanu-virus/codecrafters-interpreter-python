@@ -3,6 +3,7 @@ import sys
 def main():
     # You can use print statements as follows for debugging, they'll be visible when running tests.
     print("Logs from your program will appear here!", file=sys.stderr)
+
     if len(sys.argv) < 3:
         print("Usage: ./your_program.sh tokenize <filename>", file=sys.stderr)
         exit(1)
@@ -14,9 +15,13 @@ def main():
         print(f"Unknown command: {command}", file=sys.stderr)
         exit(1)
     
-    with open(filename) as file:
-        file_contents = file.read()
-    
+    try:
+        with open(filename) as file:
+            file_contents = file.read()
+    except FileNotFoundError:
+        print(f"Error: File '{filename}' not found.", file=sys.stderr)
+        exit(1)
+
     exit_code = 0
     toks = []
     errs = []
@@ -24,86 +29,59 @@ def main():
     if file_contents:
         line_no = 1
         ptr = 0
-        while ptr < len(file_contents):
+        length = len(file_contents)
+        
+        single_char_tokens = {
+            '(': "LEFT_PAREN", ')': "RIGHT_PAREN",
+            '{': "LEFT_BRACE", '}': "RIGHT_BRACE",
+            ',': "COMMA", '.': "DOT", 
+            '+': "PLUS", '-': "MINUS", 
+            ';': "SEMICOLON", '*': "STAR", 
+            '/': "SLASH", "":("STRING"),
+        }
+        
+        multi_char_tokens = {
+            '=': ("EQUAL", "EQUAL_EQUAL", "="),
+            '!': ("BANG", "BANG_EQUAL", "="),
+            '<': ("LESS", "LESS_EQUAL", "="),
+            '>': ("GREATER", "GREATER_EQUAL", "="),
+        }
+        
+        while ptr < length:
             ch = file_contents[ptr]
-            ch_name = ""
-            if ch == "(":
-                ch_name = "LEFT_PAREN"
-            elif ch == ")":
-                ch_name = "RIGHT_PAREN"
-            elif ch == "{":
-                ch_name = "LEFT_BRACE"
-            elif ch == "}":
-                ch_name = "RIGHT_BRACE"
-            elif ch == ",":
-                ch_name = "COMMA"
-            elif ch == ".":
-                ch_name = "DOT"
-            elif ch == "+":
-                ch_name = "PLUS"
-            elif ch == "-":
-                ch_name = "MINUS"
-            elif ch == ";":
-                ch_name = "SEMICOLON"
-            elif ch == "*":
-                ch_name = "STAR"
-            elif ch == "\n":
-                line_no += 1
-                ptr += 1
-                continue
             
-            elif ch == "=":
-                if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
-                    ch_name = "EQUAL_EQUAL"
-                    ch = "=="
-                    ptr += 1
-                else:
-                    ch_name = "EQUAL"
-            elif ch == "!":
-                if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
-                    ch_name = "BANG_EQUAL"
-                    ch = "!="
-                    ptr += 1
-                else:
-                    ch_name = "BANG"
-            elif ch == "<":
-                if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
-                    ch_name = "LESS_EQUAL"
-                    ch = "<="
-                    ptr += 1
-                else:
-                    ch_name = "LESS"
-            elif ch == ">":
-                if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "=":
-                    ch_name = "GREATER_EQUAL"
-                    ch = ">="
-                    ptr += 1
-                else:
-                    ch_name = "GREATER"
-            elif ch == "/":
-                if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "/":
+            if ch in single_char_tokens:
+                if ch == '/' and ptr < length - 1 and file_contents[ptr + 1] == '/':
                     # Skip to the end of the line for a comment
-                    while ptr < len(file_contents) and file_contents[ptr] != "\n":
+                    while ptr < length and file_contents[ptr] != "\n":
                         ptr += 1
                     continue
                 else:
-                    ch_name = "SLASH"
-            elif  ch ==" " or ch == "\r" or ch == "\t":
-                pass
+                    toks.append(f"{single_char_tokens[ch]} {ch} null")
+            elif ch in multi_char_tokens:
+                base_name, combined_name, next_char = multi_char_tokens[ch]
+                if ptr < length - 1 and file_contents[ptr + 1] == next_char:
+                    toks.append(f"{combined_name} {ch}{next_char} null")
+                    ptr += 1
+                else:
+                    toks.append(f"{base_name} {ch} null")
+            elif ch == '\n':
+                line_no += 1
+            elif ch in " \r\t":
+                pass  # Skip whitespace
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
-                ptr+=1
-                continue  # Skip adding this character to toks
-            ptr+=1
-            if ch_name:
-                toks.append(f"{ch_name} {ch} null")
+            
+            ptr += 1
         
-        toks.append("EOF  null")  # Placeholder, remove this line when implementing the scanner
-        print("\n".join(errs), file=sys.stderr)
+        toks.append("EOF null")  # End of file token
+        
+        if errs:
+            print("\n".join(errs), file=sys.stderr)
         print("\n".join(toks))
     else:
-        print("EOF  null")  # Placeholder, remove this line when implementing the scanner
+        print("EOF null")  # If the file is empty, just print EOF
     
     exit(exit_code)
 
