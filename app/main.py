@@ -103,6 +103,8 @@ def main():
                     inum=int(num)
                     print(f"NUMBER {num} {inum}")
                 else:
+                    num=float(snum)
+                    inum=int(num)
                     print(f"NUMBER {inum} {num}")
             ptr += 1
         
