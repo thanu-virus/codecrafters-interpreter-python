@@ -30,6 +30,8 @@ def main():
         line_no = 1
         ptr = 0
         length = len(file_contents)
+        string=""
+        chh=""
         
         single_char_tokens = {
             '(': "LEFT_PAREN", ')': "RIGHT_PAREN",
@@ -37,7 +39,7 @@ def main():
             ',': "COMMA", '.': "DOT", 
             '+': "PLUS", '-': "MINUS", 
             ';': "SEMICOLON", '*': "STAR", 
-            '/': "SLASH", "":("STRING"),
+            '/': "SLASH",'"':"STRING",
         }
         
         multi_char_tokens = {
@@ -56,6 +58,13 @@ def main():
                     while ptr < length and file_contents[ptr] != "\n":
                         ptr += 1
                     continue
+                if ch=='"':
+                    while ptr < length and file_contents[ptr] != '"':
+                        string=string+file_contents[ptr]
+                        chh=chh+file_contents[ptr-1]
+                        ptr+=1
+                    chh=chh+'"'
+                    toks.append(f"{single_char_tokens[ch]} {chh} {string}")
                 else:
                     toks.append(f"{single_char_tokens[ch]} {ch} null")
             elif ch in multi_char_tokens:
