@@ -84,7 +84,7 @@ def main():
                     toks.append(f'STRING "{word}" {word}')
             elif ch.isnumeric():
                 snum=""
-                while ptr < length-1 and ch.isnumeric() !=True:
+                while ptr < length-1 and ch.isnumeric() !=False:
                     snum+=ch
                     ptr+=1
                     ch=file_contents[ptr]
