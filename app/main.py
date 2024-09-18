@@ -72,7 +72,7 @@ def main():
                 pass  # Skip whitespace
             elif ch == '"':
                     word = ""
-                    while ptr < length and file_contents[ptr] != '"':
+                    while ptr < length and file_contents[ptr+1] != '"':
                         word += file_contents[ptr]
                         ptr += 1
                     if ptr == length:
