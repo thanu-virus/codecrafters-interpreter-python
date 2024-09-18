@@ -71,15 +71,16 @@ def main():
             elif ch in " \r\t":
                 pass  # Skip whitespace
             elif ch == '"':
-                    word = ""
-                    while ptr < length and file_contents[ptr-1] != '"':
-                        word += file_contents[ptr]
-                        ptr += 1
-                    if ptr == length:
-                        error = True
-                        print(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
-                    else:
-                        toks.append(f'STRING "{word}" {word}')
+                ptr+=1
+                word = ""
+                while ptr < length and file_contents[ptr] != '"':
+                    word += file_contents[ptr]
+                    ptr += 1
+                if ptr == length:
+                    error = True
+                    print(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
+                else:
+                    toks.append(f'STRING "{word}" {word}')
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
