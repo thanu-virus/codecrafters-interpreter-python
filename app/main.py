@@ -87,7 +87,7 @@ def main():
                 while True:
                     snum+=file_contents[ptr]
                     ptr+=1
-                    b=file+file_contents[ptr]
+                    b=file_contents[ptr]
                     if b.isnumeric() !=True:
                         break
             else:
