@@ -82,7 +82,7 @@ def main():
                     ch_name = "GREATER"
             elif ch == "/":
                 if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "/":
-                    ptr=len(file_contents)
+                    ptr=len(file_contents[2:]-1)
                 else:
                     ch_name = "SLASH"
             elif  ch ==" " or ch == "\r" or ch == "\t":
