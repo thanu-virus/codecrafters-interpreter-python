@@ -106,7 +106,8 @@ def main():
                 toks.append(f"NUMBER {num} {num}")
             else:
                 num = int(snum)
-                toks.append(f"NUMBER {num} {num}")
+                fnum = float(snum)
+                toks.append(f"NUMBER {num} {fnum}")
             ptr += 1
         
         toks.append("EOF  null")  # End of file token
