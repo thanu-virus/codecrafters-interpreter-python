@@ -24,6 +24,7 @@ def main():
     if file_contents:
         line_no = 1
         ptr = 0
+        lines = file_contents.splitlines()
         while ptr < len(file_contents):
             ch = file_contents[ptr]
             ch_name = ""
@@ -82,7 +83,7 @@ def main():
                     ch_name = "GREATER"
             elif ch == "/":
                 if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "/":
-                    ptr=len(file_contents[2:])-1
+                    ptr=len(lines[line_no].split()[ptr+1:-1])
                 else:
                     ch_name = "SLASH"
             elif  ch ==" " or ch == "\r" or ch == "\t":
