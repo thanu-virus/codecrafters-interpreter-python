@@ -82,10 +82,10 @@ def main():
                     exit_code=65
                 else:
                     toks.append(f'STRING "{word}" {word}')
-            elif file_contents[ptr].isnumeric():
+            elif ch.isnumeric():
                 snum=""
                 while True:
-                    snum+=file_contents
+                    snum+=file_contents[ptr]
                     ptr+=1
                     if file_contents[ptr].isnumeric() !=True:
                         break
