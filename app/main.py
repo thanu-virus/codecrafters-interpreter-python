@@ -57,19 +57,6 @@ def main():
                     while ptr < length and file_contents[ptr] != "\n":
                         ptr += 1
                     continue
-                elif ch == '"':
-                    word = ""
-                    i =0
-                    i+= 1
-                    while i < length and file_contents[i] != '"':
-                        word += file_contents[i]
-                        i += 1
-                    if i == length:
-                        error = True
-                        print(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
-                    else:
-                        toks.append(f'{single_char_tokens[ch]} "{word}" {word}')
-                    ptr+=i
                 else:
                     toks.append(f"{single_char_tokens[ch]} {ch} null")
             elif ch in multi_char_tokens:
@@ -83,6 +70,19 @@ def main():
                 line_no += 1
             elif ch in " \r\t":
                 pass  # Skip whitespace
+            elif ch == '"':
+                    word = ""
+                    i =0
+                    i+= 1
+                    while i < length and file_contents[i] != '"':
+                        word += file_contents[i]
+                        i += 1
+                    if i == length:
+                        error = True
+                        print(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
+                    else:
+                        toks.append(f'{single_char_tokens[ch]} "{word}" {word}')
+                    ptr+=i
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
