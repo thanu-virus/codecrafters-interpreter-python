@@ -101,7 +101,7 @@ def main():
                 if snum.__contains__("."):
                     num=float(snum)
                     inum=int(num)
-                    print(f"NUMBER {num} {inum}")
+                    print(f"NUMBER {inum} {inum}")
                 else:
                     num=float(snum)
                     inum=int(num)
