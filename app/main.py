@@ -79,12 +79,12 @@ def main():
                 if ptr == length:
                     error = True
                     print(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
+                    exit_code=65
                 else:
                     toks.append(f'STRING "{word}" {word}')
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
-            
             ptr += 1
         
         toks.append("EOF  null")  # End of file token
