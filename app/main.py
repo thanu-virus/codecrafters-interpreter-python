@@ -65,7 +65,7 @@ def main():
                     while i < length+1 and file_contents[i] != '"':
                         word += file_contents[i]
                         i += 1
-                    if i == length:
+                    if i == length-1:
                         error = True
                         print(f"[line {line}] Error: Unterminated string.", file=sys.stderr)
                     else:
