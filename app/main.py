@@ -86,7 +86,6 @@ def main():
                     ch_name = "SLASH"
             elif ch == " " or ch == "\r" or ch == "\t":
                 line_no+=1
-                pass
                 ptr+=1
                 continue
             else:
