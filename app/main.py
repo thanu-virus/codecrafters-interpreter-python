@@ -91,16 +91,16 @@ def main():
                     if ptr >= length:  # Check if ptr is within the bounds
                         break
                     ch = file_contents[ptr]
-                    if not ch.isnumeric():
+                    if not ch.isnumeric() and not ".":
                         break
 
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
             if snum:
-                num=int(snum)
-                fnum=float(num)
-                print(f"NUMBER {num} {fnum}")
+                num=float(snum)
+                inum=int(num)
+                print(f"NUMBER {inum} {num}")
 
             ptr += 1
         
