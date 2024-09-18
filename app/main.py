@@ -60,7 +60,8 @@ def main():
                     continue
                 elif ch == '"':
                     word = ""
-                    i += 1
+                    i =0
+                    i+= 1
                     while i < length and file_contents[i] != '"':
                         word += file_contents[i]
                         i += 1
