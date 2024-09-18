@@ -58,7 +58,7 @@ def main():
                     while ptr < length and file_contents[ptr] != "\n":
                         ptr += 1
                     continue
-                if ch=='"':
+                if ch=='"'and ptr < length - 1:
                     while ptr < length and file_contents[ptr] != '"':                        
                         ptr += 1
                     continue    
