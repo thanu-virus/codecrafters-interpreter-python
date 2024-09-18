@@ -24,11 +24,9 @@ def main():
     if file_contents:
         line_no = 1
         ptr = 0
-        
         while ptr < len(file_contents):
             ch = file_contents[ptr]
             ch_name = ""
-            
             if ch == "(":
                 ch_name = "LEFT_PAREN"
             elif ch == ")":
@@ -87,6 +85,7 @@ def main():
                 else:
                     ch_name = "SLASH"
             elif ch == " " or ch == "\r" or ch == "\t":
+                line_no+=1
                 pass
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
