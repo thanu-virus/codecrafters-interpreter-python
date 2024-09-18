@@ -86,8 +86,9 @@ def main():
                 snum=""
                 while ptr < length and ch.isnumeric() !=False:
                     snum+=str(ch)
-                    ch=file_contents[ptr]
                     ptr+=1
+                    ch=file_contents[ptr]
+
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
