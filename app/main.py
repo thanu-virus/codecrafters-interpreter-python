@@ -65,6 +65,7 @@ def main():
                         ptr+=1
                     chh=chh+'"'
                     toks.append(f"{single_char_tokens[ch]} {chh} {string}")
+                    ptr+=len(string)
                 else:
                     toks.append(f"{single_char_tokens[ch]} {ch} null")
             elif ch in multi_char_tokens:
