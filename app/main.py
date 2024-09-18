@@ -61,6 +61,7 @@ def main():
                 if ch=='"':
                     while ptr < length and file_contents[ptr-1] != '"':                        
                         ptr += 1
+                    continue    
                 else:
                     toks.append(f"{single_char_tokens[ch]} {ch} null")
             elif ch in multi_char_tokens:
