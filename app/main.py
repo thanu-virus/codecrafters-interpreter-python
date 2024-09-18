@@ -85,7 +85,7 @@ def main():
             elif ch.isnumeric():
                 snum=""
                 while ch.isnumeric:
-                    snum+=ch[ptr]
+                    snum+=ch
                     ptr+=1
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
