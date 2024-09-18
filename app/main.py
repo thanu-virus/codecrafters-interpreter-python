@@ -83,13 +83,15 @@ def main():
                 else:
                     toks.append(f'STRING "{word}" {word}')
             elif ch.isnumeric():
+                snum = ""
                 ch=str(ch)
-                snum=""
                 while True:
-                    snum+=str(ch)
-                    ptr+=1
-                    ch=file_contents[ptr]
-                    if ptr-1 < length and ch.isnumeric() !=True:
+                    snum += ch
+                    ptr += 1
+                    if ptr >= length:  # Check if ptr is within the bounds
+                        break
+                    ch = file_contents[ptr]
+                    if not ch.isnumeric():
                         break
 
             else:
