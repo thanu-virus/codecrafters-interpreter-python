@@ -51,7 +51,6 @@ def main():
         
         while ptr < length:
             ch = file_contents[ptr]
-            
             if ch in single_char_tokens:
                 if ch == '/' and ptr < length - 1 and file_contents[ptr + 1] == '/':
                     # Skip to the end of the line for a comment
@@ -67,9 +66,9 @@ def main():
                         i += 1
                     if i == length:
                         error = True
-                        print(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
+                        toks.append(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
                     else:
-                        print(f'{single_char_tokens[ch]} "{word}" {word}')
+                        toks.append(f'{single_char_tokens[ch]} "{word}" {word}')
                     ptr+=i
                 else:
                     toks.append(f"{single_char_tokens[ch]} {ch} null")
