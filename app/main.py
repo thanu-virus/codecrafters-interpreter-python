@@ -85,7 +85,8 @@ def main():
                 else:
                     ch_name = "SLASH"
             elif ch == " " or ch == "\r" or ch == "\t":
-                line_no-=1
+                ptr+=1
+                pass
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
