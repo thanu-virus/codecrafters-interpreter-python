@@ -100,7 +100,7 @@ def main():
             if snum:
                 num=float(snum)
                 inum=int(num)
-                print(f"NUMBER {inum} {num}")
+                print(f"NUMBER {num} {inum}")
 
             ptr += 1
         
