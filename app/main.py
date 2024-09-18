@@ -83,11 +83,11 @@ def main():
                 else:
                     toks.append(f'STRING "{word}" {word}')
             elif ch.isnumeric():
+                snum=""
                 while True:
-                    snum=""
                     snum+=ch
                     if ch.isnumeric() !=True:
-                        breaj
+                        break
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
