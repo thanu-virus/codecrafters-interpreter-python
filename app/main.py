@@ -81,7 +81,7 @@ def main():
                         error = True
                         print(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
                     else:
-                        toks.append(f'{single_char_tokens[ch]} "{word}" {word}')
+                        toks.append(f'STRING "{word}" {word}')
                     ptr+=i
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
