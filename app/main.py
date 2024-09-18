@@ -82,9 +82,17 @@ def main():
                     exit_code=65
                 else:
                     toks.append(f'STRING "{word}" {word}')
+            elif ch.isnumeric():
+                snum=""
+                snum+=ch
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
+            if snum:
+                num=int(snum)
+                fnum=float(num)
+                print(f" NUMBER {num} {fnum}")
+
             ptr += 1
         
         toks.append("EOF  null")  # End of file token
