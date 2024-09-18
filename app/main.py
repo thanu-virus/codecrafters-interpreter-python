@@ -70,7 +70,7 @@ def main():
                         print(f"[line {line}] Error: Unterminated string.", file=sys.stderr)
                     else:
                         print(f'{single_char_tokens[ch]} "{word}" {word}')
-                        ptr+=ptr[i]
+                        ptr+=i
                 else:
                     toks.append(f"{single_char_tokens[ch]} {ch} null")
             elif ch in multi_char_tokens:
