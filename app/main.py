@@ -87,13 +87,13 @@ def main():
                 exit_code = 65
             ptr += 1
         
-        toks.append("EOF  null")  # End of file token
+        toks.append("EOF   null")  # End of file token
         
         if errs:
             print("\n".join(errs), file=sys.stderr)
         print("\n".join(toks))
     else:
-        print("EOF null")  # If the file is empty, just print EOF
+        print("EOF   null")  # If the file is empty, just print EOF
     
     exit(exit_code)
 
