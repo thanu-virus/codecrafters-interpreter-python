@@ -59,13 +59,12 @@ def main():
                         ptr += 1
                     continue
                 if ch=='"':
-                    while ptr < length and file_contents[ptr] != '"':
-                        string=string+file_contents[ptr]
+                    while ptr < length and file_contents[ptr+1] != '"':
+                        string=string+file_contents[ptr+1]
                         chh=chh+file_contents[ptr-1]
                         ptr+=1
                     chh=chh+'"'
                     toks.append(f"{single_char_tokens[ch]} {chh} {string}")
-                    ptr+=len(string)
                 else:
                     toks.append(f"{single_char_tokens[ch]} {ch} null")
             elif ch in multi_char_tokens:
