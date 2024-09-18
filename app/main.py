@@ -67,6 +67,7 @@ def main():
                     if i == length-1:
                         error = True
                         toks.append(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
+                        exit(0)
                     else:
                         toks.append(f'{single_char_tokens[ch]} "{word}" {word}')
                     ptr+=i
