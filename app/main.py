@@ -65,12 +65,12 @@ def main():
                     while i < length and file_contents[i] != '"':
                         word += file_contents[i]
                         i += 1
-                        if i == length:
-                            error = True
-                            print(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
-                        else:
-                            print(f'{single_char_tokens[ch]} "{word}" {word}')
-                        ptr+=i
+                    if i == length:
+                        error = True
+                        print(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
+                    else:
+                        print(f'{single_char_tokens[ch]} "{word}" {word}')
+                    ptr+=i
                 else:
                     toks.append(f"{single_char_tokens[ch]} {ch} null")
             elif ch in multi_char_tokens:
