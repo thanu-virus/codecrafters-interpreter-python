@@ -90,7 +90,7 @@ def main():
             
             ptr += 1
         
-        toks.append("EOF null")  # End of file token
+        toks.append("EOF  null")  # End of file token
         
         if errs:
             print("\n".join(errs), file=sys.stderr)
