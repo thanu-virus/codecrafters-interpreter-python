@@ -39,7 +39,7 @@ def main():
             ',': "COMMA", '.': "DOT", 
             '+': "PLUS", '-': "MINUS", 
             ';': "SEMICOLON", '*': "STAR", 
-            '/': "SLASH",'"':"STRING",
+            '/': "SLASH",
         }
         
         multi_char_tokens = {
