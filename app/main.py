@@ -102,8 +102,8 @@ def main():
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
             if decimal_found:
-                num = float(snum)
-                toks.append(f"NUMBER {num} {num}")
+                num = (snum)
+                toks.append(f"NUMBER {snum} {num}")
             else:
                 num = int(snum)
                 fnum = float(snum)
