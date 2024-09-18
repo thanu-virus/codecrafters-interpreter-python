@@ -58,7 +58,7 @@ def main():
                     while ptr < length and file_contents[ptr] != "\n":
                         ptr += 1
                     continue
-                elif c == '"':
+                elif ch == '"':
                     word = ""
                     i += 1
                     while i < length and file_contents[i] != '"':
