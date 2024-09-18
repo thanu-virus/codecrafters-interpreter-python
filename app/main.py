@@ -84,27 +84,29 @@ def main():
                     toks.append(f'STRING "{word}" {word}')
             elif ch.isnumeric():
                 snum = ""
-                ch=str(ch)
+                decimal_found = False
                 while True:
                     snum += ch
                     ptr += 1
                     if ptr >= length:  # Check if ptr is within the bounds
                         break
                     ch = file_contents[ptr]
-                    if not ch.isnumeric() and not ".":
+                    # Allow only one decimal point in the number
+                    if ch == '.' and not decimal_found:
+                        decimal_found = True
+                    elif not ch.isnumeric():
                         break
+
 
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
-            if snum:
-                if snum.__contains__("."):
-                    num=float(snum)
-                    print(f"NUMBER {num} {num}")
-                else:
-                    num=float(snum)
-                    inum=int(num)
-                    print(f"NUMBER {inum} {num}")
+            if decimal_found:
+                num = float(snum)
+                toks.append(f"NUMBER {num} {num}")
+            else:
+                num = int(snum)
+                toks.append(f"NUMBER {num} {num}")
             ptr += 1
         
         toks.append("EOF  null")  # End of file token
