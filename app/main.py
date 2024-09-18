@@ -93,7 +93,7 @@ def main():
             print("\n".join(errs), file=sys.stderr)
         print("\n".join(toks))
     else:
-        print("EOF   null")  # If the file is empty, just print EOF
+        print("EOF  null")  # If the file is empty, just print EOF
     
     exit(exit_code)
 
