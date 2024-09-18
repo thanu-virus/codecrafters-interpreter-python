@@ -98,10 +98,12 @@ def main():
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
             if snum:
-                num=float(snum)
-                inum=int(num)
-                print(f"NUMBER {num} {inum}")
-
+                if snum.__contains__("."):
+                    num=float(snum)
+                    inum=int(num)
+                    print(f"NUMBER {num} {inum}")
+                else:
+                    print(f"NUMBER {inum} {num}")
             ptr += 1
         
         toks.append("EOF  null")  # End of file token
