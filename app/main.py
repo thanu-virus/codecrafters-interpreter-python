@@ -95,7 +95,7 @@ def main():
             if snum:
                 num=int(snum)
                 fnum=float(num)
-                print(f" NUMBER {num} {fnum}")
+                print(f"NUMBER {num} {fnum}")
 
             ptr += 1
         
