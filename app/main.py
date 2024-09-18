@@ -47,7 +47,7 @@ def main():
                 ch_name = "SEMICOLON"
             elif ch == "*":
                 ch_name = "STAR"
-            elif ch == "\n":
+            elif ch == "\n" or ch == " ":
                 line_no += 1
                 ptr += 1
                 continue
@@ -84,10 +84,8 @@ def main():
                     ptr=len(file_contents)
                 else:
                     ch_name = "SLASH"
-            elif ch == " " or ch == "\r" or ch == "\t":
-                line_no+=1
-                ptr+=1
-                continue
+            elif  ch == "\r" or ch == "\t":
+                pass
             else:
                 errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
                 exit_code = 65
