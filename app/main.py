@@ -1,124 +1,173 @@
+import enum
+import pathlib
 import sys
-
-def main():
-    # You can use print statements as follows for debugging, they'll be visible when running tests.
-    print("Logs from your program will appear here!", file=sys.stderr)
-
+from typing import Any
+class TokenType(enum.Enum):
+    LEFT_PAREN = "LEFT_PAREN"
+    RIGHT_PAREN = "RIGHT_PAREN"
+    LEFT_BRACE = "LEFT_BRACE"
+    RIGHT_BRACE = "RIGHT_BRACE"
+    STAR = "STAR"
+    DOT = "DOT"
+    COMMA = "COMMA"
+    PLUS = "PLUS"
+    MINUS = "MINUS"
+    SEMICOLON = "SEMICOLON"
+    EQUAL = "EQUAL"
+    EQUAL_EQUAL = "EQUAL_EQUAL"
+    BANG = "BANG"
+    BANG_EQUAL = "BANG_EQUAL"
+    LESS = "LESS"
+    LESS_EQUAL = "LESS_EQUAL"
+    GREATER = "GREATER"
+    GREATER_EQUAL = "GREATER_EQUAL"
+    SLASH = "SLASH"
+    STRING = "STRING"
+    NUMBER = "NUMBER"
+    EOF = "EOF"
+class Token:
+    def __init__(
+        self, type: TokenType, lexeme: str, literal: Any | None, line: int
+    ) -> None:
+        self.type = type
+        self.lexeme = lexeme
+        self.literal = literal
+        self.line = line
+    def __str__(self) -> str:
+        literal_str = "null" if self.literal is None else str(self.literal)
+        return f"{self.type.value} {self.lexeme} {literal_str}"
+class Scanner:
+    def __init__(self, source: str) -> None:
+        self.source = source
+        self.tokens: list[Token] = []
+        self.start = 0
+        self.current = 0
+        self.line = 1
+        self.errors: list[str] = []
+    def scan_tokens(self) -> tuple[list[Token], list[str]]:
+        while not self.is_at_end():
+            self.start = self.current
+            self.scan_token()
+        self.tokens.append(Token(TokenType.EOF, "", None, self.line))
+        return self.tokens, self.errors
+    def is_at_end(self) -> bool:
+        return self.current >= len(self.source)
+    def scan_token(self) -> None:
+        char = self.advance()
+        match char:
+            case "(":
+                self.add_token(TokenType.LEFT_PAREN)
+            case ")":
+                self.add_token(TokenType.RIGHT_PAREN)
+            case "{":
+                self.add_token(TokenType.LEFT_BRACE)
+            case "}":
+                self.add_token(TokenType.RIGHT_BRACE)
+            case "*":
+                self.add_token(TokenType.STAR)
+            case ".":
+                self.add_token(TokenType.DOT)
+            case ",":
+                self.add_token(TokenType.COMMA)
+            case "+":
+                self.add_token(TokenType.PLUS)
+            case "-":
+                self.add_token(TokenType.MINUS)
+            case ";":
+                self.add_token(TokenType.SEMICOLON)
+            case "!":
+                self.add_token(TokenType.BANG_EQUAL) if self.match(
+                    "="
+                ) else self.add_token(TokenType.BANG)
+            case "=":
+                self.add_token(TokenType.EQUAL_EQUAL) if self.match(
+                    "="
+                ) else self.add_token(TokenType.EQUAL)
+            case "<":
+                self.add_token(TokenType.LESS_EQUAL) if self.match(
+                    "="
+                ) else self.add_token(TokenType.LESS)
+            case ">":
+                self.add_token(TokenType.GREATER_EQUAL) if self.match(
+                    "="
+                ) else self.add_token(TokenType.GREATER)
+            case "/":
+                if self.match("/"):
+                    while self.peek() != "\n" and not self.is_at_end():
+                        self.advance()
+                else:
+                    self.add_token(TokenType.SLASH)
+            case " " | "\r" | "\t":
+                ...
+            case "\n":
+                self.line += 1
+            case '"':
+                self.string()
+            case _:
+                self.error(f"Unexpected character: {char}")
+                if self.is_digit(char):
+                    self.number()
+                else:
+                    self.error(f"Unexpected character: {char}")
+    def advance(self) -> str:
+        self.current += 1
+        return self.source[self.current - 1]
+    def add_token(self, type: TokenType, literal: Any | None = None) -> None:
+        text = self.source[self.start : self.current]
+        self.tokens.append(Token(type, text, literal, self.line))
+    def peek(self) -> str:
+        return "\0" if self.is_at_end() else self.source[self.current]
+    def peek_next(self) -> str:
+        if self.current + 1 >= len(self.source):
+            return "\0"
+        return self.source[self.current + 1]
+    def match(self, expected: str) -> bool:
+        if self.is_at_end():
+            return False
+        if self.source[self.current] != expected:
+            return False
+        self.current += 1
+        return True
+    def string(self) -> None:
+        while self.peek() != '"' and not self.is_at_end():
+            if self.peek() == "\n":
+                self.line += 1
+            self.advance()
+        if self.is_at_end():
+            self.errors.append(f"[line {self.line}] Error: Unterminated string.")
+            return
+        self.advance()
+        value = self.source[self.start + 1 : self.current - 1]
+        self.add_token(TokenType.STRING, value)
+    def is_digit(self, char: str) -> bool:
+        return char >= "0" and char <= "9"
+    def number(self) -> None:
+        while self.is_digit(self.peek()):
+            self.advance()
+        if self.peek() == "." and self.is_digit(self.peek_next()):
+            self.advance()
+        while self.is_digit(self.peek()):
+            self.advance()
+        self.add_token(TokenType.NUMBER, float(self.source[self.start : self.current]))
+    def error(self, char: str) -> None:
+        self.errors.append(f"[line {self.line}] Error: {char}")
+def main() -> None:
     if len(sys.argv) < 3:
         print("Usage: ./your_program.sh tokenize <filename>", file=sys.stderr)
         exit(1)
-        
     command = sys.argv[1]
     filename = sys.argv[2]
-    
     if command != "tokenize":
         print(f"Unknown command: {command}", file=sys.stderr)
         exit(1)
-    
-    try:
-        with open(filename) as file:
-            file_contents = file.read()
-    except FileNotFoundError:
-        print(f"Error: File '{filename}' not found.", file=sys.stderr)
-        exit(1)
-
-    exit_code = 0
-    toks = []
-    errs = []
-    
-    if file_contents:
-        line_no = 1
-        ptr = 0
-        length = len(file_contents)
-        string=""
-        chh=""
-        
-        single_char_tokens = {
-            '(': "LEFT_PAREN", ')': "RIGHT_PAREN",
-            '{': "LEFT_BRACE", '}': "RIGHT_BRACE",
-            ',': "COMMA", '.': "DOT", 
-            '+': "PLUS", '-': "MINUS", 
-            ';': "SEMICOLON", '*': "STAR", 
-            '/': "SLASH",
-        }
-        
-        multi_char_tokens = {
-            '=': ("EQUAL", "EQUAL_EQUAL", "="),
-            '!': ("BANG", "BANG_EQUAL", "="),
-            '<': ("LESS", "LESS_EQUAL", "="),
-            '>': ("GREATER", "GREATER_EQUAL", "="),
-        }
-        
-        while ptr < length:
-            ch = file_contents[ptr]
-            if ch in single_char_tokens:
-                if ch == '/' and ptr < length - 1 and file_contents[ptr + 1] == '/':
-                    # Skip to the end of the line for a comment
-                    while ptr < length and file_contents[ptr] != "\n":
-                        ptr += 1
-                    continue
-                else:
-                    toks.append(f"{single_char_tokens[ch]} {ch} null")
-            elif ch in multi_char_tokens:
-                base_name, combined_name, next_char = multi_char_tokens[ch]
-                if ptr < length - 1 and file_contents[ptr + 1] == next_char:
-                    toks.append(f"{combined_name} {ch}{next_char} null")
-                    ptr += 1
-                else:
-                    toks.append(f"{base_name} {ch} null")
-            elif ch == '\n':
-                line_no += 1
-            elif ch in " \r\t":
-                pass  # Skip whitespace
-            elif ch == '"':
-                ptr+=1
-                word = ""
-                while ptr < length and file_contents[ptr] != '"':
-                    word += file_contents[ptr]
-                    ptr += 1
-                if ptr == length:
-                    error = True
-                    print(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
-                    exit_code=65
-                else:
-                    toks.append(f'STRING "{word}" {word}')
-            elif ch.isnumeric():
-                snum = ""
-                decimal_found = False
-                while True:
-                    snum += ch
-                    ptr += 1
-                    if ptr >= length:  # Check if ptr is within the bounds
-                        break
-                    ch = file_contents[ptr]
-                    # Allow only one decimal point in the number
-                    if ch == '.' and not decimal_found:
-                        decimal_found = True
-                    elif not ch.isnumeric():
-                        break
-
-
-            else:
-                errs.append(f"[line {line_no}] Error: Unexpected character: {ch}")
-                exit_code = 65
-            if decimal_found:
-                num = float(snum)
-                toks.append(f"NUMBER {snum} {num}")
-            else:
-                num = int(snum)
-                fnum = float(snum)
-                toks.append(f"NUMBER {num} {fnum}")
-            ptr += 1
-        
-        toks.append("EOF  null")  # End of file token
-        
-        if errs:
-            print("\n".join(errs), file=sys.stderr)
-        print("\n".join(toks))
-    else:
-        print("EOF  null")  # If the file is empty, just print EOF
-    
-    exit(exit_code)
-
+    file_contents = pathlib.Path(filename).read_text()
+    scanner = Scanner(file_contents)
+    tokens, errors = scanner.scan_tokens()
+    for token in tokens:
+        print(token)
+    for error in errors:
+        print(error, file=sys.stderr)
+    if errors:
+        exit(65)
 if __name__ == "__main__":
     main()
