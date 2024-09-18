@@ -62,7 +62,7 @@ def main():
                     word = ""
                     i =0
                     i+= 1
-                    while i < length and file_contents[i] != '"':
+                    while i < length+1 and file_contents[i] != '"':
                         word += file_contents[i]
                         i += 1
                     if i == length:
