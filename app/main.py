@@ -85,8 +85,7 @@ def main():
             elif ch.isnumeric():
                 snum=""
                 while ptr < length and ch.isnumeric() !=False:
-                    snum=str(ch)
-                    snum+=str(snum)
+                    snum+=str(ch)
                     ch=file_contents[ptr]
                     ptr+=1
             else:
