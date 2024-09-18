@@ -64,10 +64,9 @@ def main():
                     while i < length and file_contents[i] != '"':
                         word += file_contents[i]
                         i += 1
-                    if i == length-1:
+                    if i == length:
                         error = True
-                        toks.append(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
-                        exit(0)
+                        print(f"[line {line_no}] Error: Unterminated string.", file=sys.stderr)
                     else:
                         toks.append(f'{single_char_tokens[ch]} "{word}" {word}')
                     ptr+=i
