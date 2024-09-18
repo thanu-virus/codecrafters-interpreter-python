@@ -89,7 +89,7 @@ def main():
                     snum+=str(ch)
                     ptr+=1
                     ch=file_contents[ptr]
-                    if ptr < length+1 and ch.isnumeric() !=True:
+                    if ptr-1 < length and ch.isnumeric() !=True:
                         break
 
             else:
