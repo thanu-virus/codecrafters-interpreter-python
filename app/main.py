@@ -83,7 +83,7 @@ def main():
                     ch_name = "GREATER"
             elif ch == "/":
                 if ptr < len(file_contents) - 1 and file_contents[ptr + 1] == "/":
-                    ptr=len(lines[line_no].split()[ptr+1:-1])
+                    ptr=len(lines[0].split()[ptr+1:-1])
                 else:
                     ch_name = "SLASH"
             elif  ch ==" " or ch == "\r" or ch == "\t":
