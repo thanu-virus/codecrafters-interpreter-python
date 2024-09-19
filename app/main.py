@@ -106,8 +106,8 @@ class Scanner:
                 # Handle numbers or errors
                 if self.is_digit(char):
                     self.number()
-                elif self.is_identifiers(char):
-                    self.variable()
+                elif self.is_alpha_numeric(char):
+                    self.identifier()
                 else:
                     self.error(f"Unexpected character: {char}")
 
