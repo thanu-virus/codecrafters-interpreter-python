@@ -169,8 +169,6 @@ class Scanner:
         while self.is_alpha_numeric(self.peek()):
             self.advance()
         self.add_token(TokenType.IDENTIFIER)
-        variable = (self.source[self.start: self.current])
-        self.add_token(TokenType.IDENTIFIER,variable)    
     def error(self, char: str) -> None:
         self.errors.append(f"[line {self.line}] Error: {char}")
 
