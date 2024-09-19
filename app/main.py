@@ -162,7 +162,6 @@ class Scanner:
         self.add_token(TokenType.NUMBER, value)
 
     def is_identifiers(self , char:str)-> bool:
-        beg=self.peek()
         if beg.isalpha() and beg.islower or beg in "_":
             return True
     def variable(self):
