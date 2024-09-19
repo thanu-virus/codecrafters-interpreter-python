@@ -26,6 +26,7 @@ class TokenType(enum.Enum):
     SLASH = "SLASH"
     STRING = "STRING"
     NUMBER = "NUMBER"
+    IDENTIFIER="IDENTIFIER"
     EOF = "EOF"
 
 # Define a Token class to represent individual tokens
@@ -105,6 +106,8 @@ class Scanner:
                 # Handle numbers or errors
                 if self.is_digit(char):
                     self.number()
+                elif self.is_identifiers(char):
+                    self.variable()
                 else:
                     self.error(f"Unexpected character: {char}")
 
@@ -158,6 +161,18 @@ class Scanner:
         value = float(self.source[self.start: self.current])
         self.add_token(TokenType.NUMBER, value)
 
+    def is_identifiers(self , char:str)-> bool:
+        beg=self.peek()
+        if beg.isalpha() and beg.islower or beg in "_":
+            return True
+    def variable(self):
+        self.peek()
+        while True:
+            self.peek_next()
+            if self.peek_next()==" " or self.peek_next()=="\n":
+                break
+        variable = (self.source[self.start: self.current])
+        self.add_token(TokenType.IDENTIFIER,variable)    
     def error(self, char: str) -> None:
         self.errors.append(f"[line {self.line}] Error: {char}")
 
