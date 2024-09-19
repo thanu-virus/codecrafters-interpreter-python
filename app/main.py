@@ -161,15 +161,14 @@ class Scanner:
         value = float(self.source[self.start: self.current])
         self.add_token(TokenType.NUMBER, value)
 
-    def is_identifiers(self , char:str)-> bool:
-        beg=self.peek()
-        if beg.isalpha() and beg.islower or beg in "_":
-            return True
-    def variable(self):
-        while True:
-            self.peek_next()
-            if self.peek()==" " or self.peek()=="\n":
-                break
+    def is_alpha(self, char: str) -> bool:
+        return char >= "a" and char <= "z" or char >= "A" and char <= "Z" or char == "_"
+    def is_alpha_numeric(self, char: str) -> bool:
+        return self.is_alpha(char) or self.is_digit(char)
+    def identifier(self) -> None:
+        while self.is_alpha_numeric(self.peek()):
+            self.advance()
+        self.add_token(TokenType.IDENTIFIER)
         variable = (self.source[self.start: self.current])
         self.add_token(TokenType.IDENTIFIER,variable)    
     def error(self, char: str) -> None:
