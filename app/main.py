@@ -18,24 +18,9 @@ def main():
     error = False
     length = len(file_contents)
     i = 0
-    reserved_words = [
-        "and",
-        "class",
-        "else",
-        "false",
-        "for",
-        "fun",
-        "if",
-        "nil",
-        "or",
-        "print",
-        "return",
-        "super",
-        "this",
-        "true",
-        "var",
-        "while",
-    ]
+    reserved_keywords={
+          "and": AND, "class":CLASS, "else":ELSE, "false":FALSE, "for":FOR , "fun":FUN, "if":IF, "nil":NIL, "or":OR, "print":PRINT, "return":RETURN, "super":SUPER, "this":THIS , "true":TRUE, "var":VAR, "while":WHILE  
+        }
     if file_contents:
         while i < length:
             c = file_contents[i]
@@ -116,7 +101,7 @@ def main():
                     word += file_contents[i]
                     i += 1
                 print(f"IDENTIFIER {word} null")
-                if word in reserved_words:
+                if word in reserved_keywords:
                     print(f"{word.upper()} {word} null")
                 else:
                     print(f"IDENTIFIER {word} null")
