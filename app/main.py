@@ -28,6 +28,9 @@ class TokenType(enum.Enum):
     NUMBER = "NUMBER"
     IDENTIFIER="IDENTIFIER"
     EOF = "EOF"
+    reserved_keywords={
+          "and": AND, "class":CLASS, "else":ELSE, "false":FALSE, "for":FOR , "fun":FUN, "if":IF, "nil":NIL, "or":OR, "print":PRINT, "return":RETURN, "super":SUPER, "this":THIS , "true":TRUE, "var":VAR, "while":WHILE  
+        }
 
 
 # Define a Token class to represent individual tokens
@@ -167,14 +170,11 @@ class Scanner:
     def is_alpha_numeric(self, char: str) -> bool:
         return self.is_alpha(char) or self.is_digit(char)
     def identifier(self) -> None:
-        reserved_keywords={
-          "and": AND, "class":CLASS, "else":ELSE, "false":FALSE, "for":FOR , "fun":FUN, "if":IF, "nil":NIL, "or":OR, "print":PRINT, "return":RETURN, "super":SUPER, "this":THIS , "true":TRUE, "var":VAR, "while":WHILE  
-        }
         while self.is_alpha_numeric(self.peek()):
             self.advance()
         text = self.source[self.start: self.current]
-        if text in reserved_keywords:
-            print(f"{reserved_keywords.text} {text} null")
+        if text in token_type.reserved_keywords:
+            print(f"{token_type.reserved_keywords.text} {text} null")
         else:
             self.add_token(TokenType.IDENTIFIER)
     def error(self, char: str) -> None:
