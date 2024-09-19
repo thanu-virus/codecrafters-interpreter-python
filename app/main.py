@@ -28,9 +28,7 @@ class TokenType(enum.Enum):
     NUMBER = "NUMBER"
     IDENTIFIER="IDENTIFIER"
     EOF = "EOF"
-    reserved_keywords={
-          "and": AND, "class":CLASS, "else":ELSE, "false":FALSE, "for":FOR , "fun":FUN, "if":IF, "nil":NIL, "or":OR, "print":PRINT, "return":RETURN, "super":SUPER, "this":THIS , "true":TRUE, "var":VAR, "while":WHILE  
-        }
+    
 
 
 # Define a Token class to represent individual tokens
@@ -47,6 +45,9 @@ class Token:
 
 # Scanner class to tokenize the source code
 class Scanner:
+    reserved_keywords={
+          "and": TokenType.AND, "class":TokenType.CLASS, "else":TokenType.ELSE, "false":TokenType.FALSE, "for":TokenType.FOR , "fun":TokenType.FUN, "if":TokenType.IF, "nil":TokenType.NIL, "or":TokenType.OR, "print":TokenType.PRINT, "return":TokenType.RETURN, "super":TokenType.SUPER, "this":TokenType.THIS , "true":TokenType.TRUE, "var":TokenType.VAR, "while":TokenType.WHILE  
+        }
     def __init__(self, source: str) -> None:
         self.source = source
         self.tokens: list[Token] = []  # List to store generated tokens
@@ -172,11 +173,8 @@ class Scanner:
     def identifier(self) -> None:
         while self.is_alpha_numeric(self.peek()):
             self.advance()
-        text = self.source[self.start: self.current]
-        if text in token_type.reserved_keywords:
-            print(f"{token_type.reserved_keywords.text} {text} null")
-        else:
-            self.add_token(TokenType.IDENTIFIER)
+            type = self.keywords.get(self.text, TokenType.IDENTIFIER)
+            self.add_token(type)
     def error(self, char: str) -> None:
         self.errors.append(f"[line {self.line}] Error: {char}")
 
