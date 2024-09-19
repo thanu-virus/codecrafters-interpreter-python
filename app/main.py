@@ -168,7 +168,7 @@ class Scanner:
     def variable(self):
         while True:
             self.peek_next()
-            if self.peek_next()==" " or self.peek_next()=="\n":
+            if self.peek()==" " or self.peek()=="\n":
                 break
         variable = (self.source[self.start: self.current])
         self.add_token(TokenType.IDENTIFIER,variable)    
