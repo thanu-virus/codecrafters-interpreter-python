@@ -8,7 +8,7 @@ def main():
         exit(1)
     command = sys.argv[1]
     filename = sys.argv[2]
-    if command != "tokenize":
+    if command != "tokenize" or command != "parse":
         print(f"Unknown command: {command}", file=sys.stderr)
         exit(1)
     with open(filename) as file:
