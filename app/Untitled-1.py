@@ -1,11 +1,6 @@
-class Dog:
-    def __init__(self, name, breed, age):  # Constructor
-        self.name = name     # Initialize the 'name' attribute
-        self.breed = breed   # Initialize the 'breed' attribute
-        self.age = age       # Initialize the 'age' attribute
-
-    def bark(self):
-        print(f"{self.name} is barking!")
-
-# Creating an object (instance) of the class Dog
-my_dog = Dog("Buddy", "Golden Retriever", 3)
+reserved_keywords={
+          "and": AND, "class":CLASS, "else":ELSE, "false":FALSE, "for":FOR , "fun":FUN, "if":IF, "nil":NIL, "or":OR, "print":PRINT, "return":RETURN, "super":SUPER, "this":THIS , "true":TRUE, "var":VAR, "while":WHILE  
+        }
+rr=reserved_keywords.AND
+if rr in reserved_keywords:
+        print("yes")
