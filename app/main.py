@@ -262,10 +262,7 @@ class Lexer:
                     return self.advance_with(Token(TOKEN_TYPE.GREATER, ">", "null"))
             case '"':
                 return self.next_string()
-            case "_":
-                return self.next_id()
             case _:
-                if self.c.isalpha():
                 if self.c.isalpha() or self.c == "_":
                     return self.next_id()
                 if self.c.isdigit():
@@ -376,21 +373,14 @@ def main():
         exit(1)
     command: str = sys.argv[1]
     filename: str = sys.argv[2]
-    if command != "tokenize":
     commands = ["tokenize", "parse"]
     if command not in commands:
         print(f"Unknown command: {command}", file=sys.stderr)
         exit(1)
     with open(filename) as file:
         file_contents = file.read()
-    lex = Lexer(file_contents)
         if command == "tokenize":
             lex = Lexer(file_contents)
-    token: Token = Token(TOKEN_TYPE.NONE, "", "")
-    while token.type != TOKEN_TYPE.EOF:
-        token = lex.next_token()
-        if token.type != TOKEN_TYPE.NONE:
-            print(token)
             token: Token = Token(TOKEN_TYPE.NONE, "", "")
             while token.type != TOKEN_TYPE.EOF:
                 token = lex.next_token()
