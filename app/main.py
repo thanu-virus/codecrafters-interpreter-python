@@ -316,7 +316,6 @@ class Parser:
 def Binary(left, operator, right):
     return {"left": left, "operator": operator, "right": right}
 def Unary(operator, right):
-    return {"operator": operator, "right": right}
     return f"({operator.lexeme} {right})"
 def Literal(value):
     if value is None:
